@@ -22,7 +22,7 @@ app.use(cors());
 
 app.use(express.json());
 
-app.get('/', (res, req) => {
+app.get('/', (req, res) => {
   res.send('<h1>Tasks API<h1><a href="api-docs">Documentation</a>')
 })
 
@@ -31,11 +31,6 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/task', tasksRouter);
 app.use('/api/v1/token', refreshTokenRouter);
-
-// app.get('/', (req, res) => {
-//   // Your POST route logic heregit init
-//   res.send("hello santus ")
-// });
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
