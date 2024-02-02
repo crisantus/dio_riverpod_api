@@ -22,12 +22,12 @@ paths:
               allOf:
                 - $ref: '#/components/schemas/RegisterUserRequest'
                 - example:
-                    name: peter
-                    email: peter@gmail.com
+                    name: sunshine
+                    email: sunshine@gmail.com
                     password: secret
             example:
-              name: peter
-              email: peter@gmail.com
+              name: sunshine
+              email: sunshine@gmail.com
               password: secret
         required: true
       responses:
@@ -51,10 +51,10 @@ paths:
               allOf:
                 - $ref: '#/components/schemas/LoginUserRequest'
                 - example:
-                    email: petr@gmail.com
+                    email: ella@gmail.com
                     password: secret
             example:
-              email: petr@gmail.com
+              email: ella@gmail.com
               password: secret
         required: true
       responses:
@@ -63,7 +63,7 @@ paths:
           headers: {}
       deprecated: false
       security: []
-  /task/:
+  /task:
     post:
       tags:
         - Tasks
@@ -78,11 +78,11 @@ paths:
               allOf:
                 - $ref: '#/components/schemas/CreateTaskRequest'
                 - example:
-                    company: Hulu
-                    position: Graphics Designer
+                    title: Oath taking
+                    description: on friday
             example:
-              company: Hulu
-              position: Graphics Designer
+              title: Oath taking
+              description: on friday
         required: true
       responses:
         '200':
@@ -125,7 +125,6 @@ paths:
       deprecated: false
       security:
         - bearer: []
-
     patch:
       tags:
         - Tasks
@@ -140,11 +139,11 @@ paths:
               allOf:
                 - $ref: '#/components/schemas/UpdateTaskRequest'
                 - example:
-                    company: raandom
-                    position: full-stack developer
+                    title: Nysc
+                    description: on holding because of no statement of result yet
             example:
-              company: raandom
-              position: full-stack developer
+              title: Nysc
+              description: on holding because of no statement of result yet
         required: true
       responses:
         '200':
@@ -167,17 +166,30 @@ paths:
       security:
         - bearer: []
   /token/refresh-token:
-    get:
+    post:
       tags:
-        - Tasks
+        - RefreshToken
       summary: Resfresh Token
       operationId: ResfreshToken
       parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/ResfreshTokenRequest'
+                - example:
+                    refresh_token: ''
+            example:
+              refresh_token: ''
+        required: true
       responses:
         '200':
           description: ''
           headers: {}
       deprecated: false
+      security: []
 components:
   schemas:
     RegisterUserRequest:
@@ -195,8 +207,8 @@ components:
         password:
           type: string
       example:
-        name: peter
-        email: peter@gmail.com
+        name: sunshine
+        email: sunshine@gmail.com
         password: secret
     LoginUserRequest:
       title: LoginUserRequest
@@ -210,43 +222,57 @@ components:
         password:
           type: string
       example:
-        email: petr@gmail.com
+        email: ella@gmail.com
         password: secret
     CreateTaskRequest:
       title: CreateTaskRequest
       required:
-        - company
-        - position
+        - title
+        - description
       type: object
       properties:
-        company:
+        title:
           type: string
-        position:
+        description:
           type: string
       example:
-        company: Hulu
-        position: Graphics Designer
+        title: Oath taking
+        description: on friday
     UpdateTaskRequest:
       title: UpdateTaskRequest
       required:
-        - company
-        - position
+        - title
+        - description
       type: object
       properties:
-        company:
+        title:
           type: string
-        position:
+        description:
           type: string
       example:
-        company: raandom
-        position: full-stack developer
+        title: Nysc
+        description: on holding because of no statement of result yet
+    ResfreshTokenRequest:
+      title: ResfreshTokenRequest
+      required:
+        - refresh_token
+      type: object
+      properties:
+        refresh_token:
+          type: string
+      example:
+        refresh_token: ''
   securitySchemes:
     bearer:
       type: http
       scheme: bearer
 security: []
 tags:
+  - name: Misc
+    description: ''
   - name: Auth
     description: ''
   - name: Tasks
+    description: ''
+  - name: RefreshToken
     description: ''
