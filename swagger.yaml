@@ -4,7 +4,7 @@ info:
   contact: {}
   version: '1.0'
 servers:
-  - url: http://dio-task-manager.com/api/v1
+  - url: https://dio-task-manager.com/api/v1
     variables: {}
 paths:
   /auth/register:
@@ -111,7 +111,7 @@ paths:
         schema:
           type: string
         required: true
-        description: The task ID
+        description: The user ID.
     get:
       tags:
         - Tasks
@@ -268,8 +268,6 @@ components:
       scheme: bearer
 security: []
 tags:
-  - name: Misc
-    description: ''
   - name: Auth
     description: ''
   - name: Tasks
