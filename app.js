@@ -18,7 +18,14 @@ const refreshTokenRouter = require('./routes/refreshTokenRoutes');
 const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
 
-app.use(cors());
+const corsOptions = {
+  origin: 'https://dio-task-manager.com', // specify the allowed origin
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true, // enable credentials (cookies, HTTP authentication)
+  optionsSuccessStatus: 204, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.get('/', (req, res) => {
