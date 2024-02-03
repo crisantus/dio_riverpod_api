@@ -4,7 +4,7 @@ info:
   contact: {}
   version: '1.0'
 servers:
-  - url: https://dio-task-manager.com/api/v1
+  - url: https://dio-task-manger-api.onrender.com/api/v1
     variables: {}
 paths:
   /auth/register:
@@ -104,14 +104,15 @@ paths:
       deprecated: false
       security:
         - bearer: []
-  /task/{id}:
+  /user/{id}:
     parameters:
       - in: path
         name: id
         schema:
-          type: string
+          type: integer
         required: true
-        description: The user ID.
+        description: The user ID
+ 
     get:
       tags:
         - Tasks
@@ -268,6 +269,7 @@ components:
       scheme: bearer
 security: []
 tags:
+
   - name: Auth
     description: ''
   - name: Tasks
