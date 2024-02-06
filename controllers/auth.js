@@ -28,8 +28,8 @@ const register = async (req, res) => {
     email,
     password,
   })
-
-  res.status(StatusCodes.CREATED).json({user});
+  const tokenUser = createTokenUser(user);
+  res.status(StatusCodes.CREATED).json({user:tokenUser});
   return;
 };
 

@@ -8,6 +8,7 @@ const authenticateUser = async (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (authHeader && authHeader.startsWith('Bearer')) {
     token = authHeader.split(' ')[1];
+   
   }
   else if(token === undefined){
     throw new CustomError.UnauthenticatedError('Authentication invalid');
@@ -43,7 +44,7 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
-const authorizeRoles = (...roles) => {
+const authorizePermissions = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {
       throw new CustomError.UnauthorizedError(
@@ -54,4 +55,4 @@ const authorizeRoles = (...roles) => {
   };
 };
 
-module.exports = { authenticateUser, authorizeRoles };
+module.exports = { authenticateUser,  authorizePermissions };

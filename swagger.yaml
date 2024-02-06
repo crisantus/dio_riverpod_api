@@ -7,6 +7,111 @@ servers:
   - url: https://dio-task-manger-api.onrender.com/api/v1
     variables: {}
 paths:
+  /users:
+    get:
+      tags:
+        - User
+      summary: Get all User
+      operationId: GetallUser
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /users/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The user ID
+    get:
+      tags:
+        - User
+      summary: Get Single User
+      operationId: GetSingleUser
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /users/showMe:
+    get:
+      tags:
+        - User
+      summary: Show Current User
+      operationId: ShowCurrentUser
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /users/updateUser:
+    patch:
+      tags:
+        - User
+      summary: Update User
+      operationId: UpdateUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/UpdateUserRequest'
+                - example:
+                    name: santus
+                    email: santus@gmail.com
+            example:
+              name: santus
+              email: santus@gmail.com
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /users/updateUserPassword:
+    patch:
+      tags:
+        - User
+      summary: Update User Password
+      operationId: UpdateUserPassword
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/UpdateUserPasswordRequest'
+                - example:
+                    currentPassword: '12345'
+                    newPassword: secret
+            example:
+              currentPassword: '12345'
+              newPassword: secret
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
   /auth/register:
     post:
       tags:
@@ -22,12 +127,12 @@ paths:
               allOf:
                 - $ref: '#/components/schemas/RegisterUserRequest'
                 - example:
-                    name: sunshine
-                    email: sunshine@gmail.com
+                    name: natty
+                    email: natty@gmail.com
                     password: secret
             example:
-              name: sunshine
-              email: sunshine@gmail.com
+              name: natty
+              email: natty@gmail.com
               password: secret
         required: true
       responses:
@@ -66,7 +171,7 @@ paths:
   /task:
     post:
       tags:
-        - Tasks
+        - Task
       summary: Create Task
       operationId: CreateTask
       parameters: []
@@ -93,7 +198,7 @@ paths:
         - bearer: []
     get:
       tags:
-        - Tasks
+        - Task
       summary: Get All Task
       operationId: GetAllTask
       parameters: []
@@ -104,18 +209,17 @@ paths:
       deprecated: false
       security:
         - bearer: []
-  /user/{id}:
+  /task/{id}:
     parameters:
       - in: path
         name: id
         schema:
-          type: integer
+          type: string
         required: true
-        description: The user ID
- 
+        description: The task ID
     get:
       tags:
-        - Tasks
+        - Task
       summary: Get Single Task
       operationId: GetSingleTask
       parameters: []
@@ -128,7 +232,7 @@ paths:
         - bearer: []
     patch:
       tags:
-        - Tasks
+        - Task
       summary: Update Task
       operationId: UpdateTask
       parameters: []
@@ -155,7 +259,7 @@ paths:
         - bearer: []
     delete:
       tags:
-        - Tasks
+        - Task
       summary: Delete Task
       operationId: DeleteTask
       parameters: []
@@ -193,6 +297,34 @@ paths:
       security: []
 components:
   schemas:
+    UpdateUserRequest:
+      title: UpdateUserRequest
+      required:
+        - name
+        - email
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+      example:
+        name: santus
+        email: santus@gmail.com
+    UpdateUserPasswordRequest:
+      title: UpdateUserPasswordRequest
+      required:
+        - currentPassword
+        - newPassword
+      type: object
+      properties:
+        currentPassword:
+          type: string
+        newPassword:
+          type: string
+      example:
+        currentPassword: '12345'
+        newPassword: secret
     RegisterUserRequest:
       title: RegisterUserRequest
       required:
@@ -208,8 +340,8 @@ components:
         password:
           type: string
       example:
-        name: sunshine
-        email: sunshine@gmail.com
+        name: natty
+        email: natty@gmail.com
         password: secret
     LoginUserRequest:
       title: LoginUserRequest
@@ -269,10 +401,11 @@ components:
       scheme: bearer
 security: []
 tags:
-
+  - name: User
+    description: ''
   - name: Auth
     description: ''
-  - name: Tasks
+  - name: Task
     description: ''
   - name: RefreshToken
     description: ''

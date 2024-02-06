@@ -14,6 +14,7 @@ const connectDB = require('./db/connect');
 const authRouter = require('./routes/auth');
 const tasksRouter = require('./routes/task');
 const refreshTokenRouter = require('./routes/refreshTokenRoutes');
+const userRouter = require('./routes/userRoutes');
 // error handler
 const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
@@ -27,6 +28,7 @@ app.get('/', (req, res) => {
 
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 // routes
+app.use('/api/v1/users',userRouter)
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/task', tasksRouter);
 app.use('/api/v1/token', refreshTokenRouter);
