@@ -31,9 +31,9 @@ const newRefreshToken = async (req, res) => {
            throw new CustomError.UnauthenticatedError('Invalid Credentials');
          }
          const tokenUser = createTokenUser(user);
-        const  refreshToken = existingToken.refreshToken;
-         const{accessTokenJWT, refreshTokenJWT} = attachTokensToResponse({ user: tokenUser, refreshToken });
-         res.status(StatusCodes.OK).json({ user: tokenUser,tokens:{accessTokenJWT, refreshTokenJWT} });
+        const  refreshTokenn = existingToken.refreshToken;
+        const{accessToken, refreshToken} = attachTokensToResponse({ user: tokenUser, refreshTokenn });
+         res.status(StatusCodes.OK).json({ user: tokenUser,tokens:{accessToken, refreshToken} });
          return;
        }else{
         throw new CustomError.UnauthenticatedError('Unathorized, please login');
