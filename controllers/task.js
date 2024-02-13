@@ -8,7 +8,7 @@ const getAllTask = async (req, res) => {
   if(!task){
    throw new CustomError.NotFoundError(`There is no task found`);
   }
-   res.status(StatusCodes.OK).send(task);
+  res.status(StatusCodes.OK).json({ task: task });
  };
 
 const getTask = async (req, res) => {
